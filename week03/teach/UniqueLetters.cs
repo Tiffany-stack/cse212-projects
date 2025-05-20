@@ -1,28 +1,45 @@
-﻿public static class UniqueLetters {
+﻿public static class DisplaySums {
     public static void Run() {
-        var test1 = "abcdefghjiklmnopqrstuvwxyz"; // Expect True because all letters unique
-        Console.WriteLine(AreUniqueLetters(test1));
+        DisplaySumPairs([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        // Should show something like (order does not matter):
+        // 6 4
+        // 7 3
+        // 8 2
+        // 9 1 
 
-        var test2 = "abcdefghjiklanopqrstuvwxyz"; // Expect False because 'a' is repeated
-        Console.WriteLine(AreUniqueLetters(test2));
+        Console.WriteLine("------------");
+        DisplaySumPairs([-20, -15, -10, -5, 0, 5, 10, 15, 20]);
+        // Should show something like (order does not matter):
+        // 10 0
+        // 15 -5
+        // 20 -10
 
-        var test3 = "";
-        Console.WriteLine(AreUniqueLetters(test3)); // Expect True because its an empty string
+        Console.WriteLine("------------");
+        DisplaySumPairs([5, 11, 2, -4, 6, 8, -1]);
+        // Should show something like (order does not matter):
+        // 8 2
+        // -1 11
     }
 
-    /// <summary>Determine if there are any duplicate letters in the text provided</summary>
-    /// <param name="text">Text to check for duplicate letters</param>
-    /// <returns>true if all letters are unique, otherwise false</returns>
-    private static bool AreUniqueLetters(string text) {
-        // TODO Problem 1 - Replace the O(n^2) algorithm to use sets and O(n) efficiency
-        for (var i = 0; i < text.Length; ++i) {
-            for (var j = 0; j < text.Length; ++j) {
-                // Don't want to compare to yourself ... that will always result in a match
-                if (i != j && text[i] == text[j])
-                    return false;
-            }
-        }
+    /// <summary>
+    /// Display pairs of numbers (no duplicates should be displayed) that sum to
+    /// 10 using a set in O(n) time.  We are assuming that there are no duplicates
+    /// in the list.
+    /// </summary>
+    /// <param name="numbers">array of integers</param>
+    private static void DisplaySumPairs(int[] numbers) {
+        // TODO Problem 2 - This should print pairs of numbers in the given array
+        HashSet<int> numbreSet = new HashSet<int>();
+        foreach (int num in numbers)
+        {
+            int otherHalf = 10 - num; // get the number needed to sum to 10
 
-        return true;
+            if (numbreSet.Contains(otherHalf))
+            {
+                Console.WriteLine($"{num} {otherHalf}");
+            }
+
+            numbreSet.Add(num); // Add current number to the set
+        }
     }
 }
